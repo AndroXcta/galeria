@@ -38,13 +38,13 @@ routerCuadro.post("/", async (req, res) => {
     const codigo_obra = req.body.codigo_obra;
     const imagen = req.body.imagen;
     if (
-      nombre.trim() !== "" &&
+      typeof nombre == false &&
       typeof nombre !== "boolean" &&
       typeof nombre !== "number" &&
-      estudio.trim() !== "" &&
+      typeof estudio == false &&
       typeof estudio !== "boolean" &&
       typeof estudio !== "number" &&
-      best_waifu.trim() !== "" &&
+      typeof best_waifu == false &&
       typeof best_waifu !== "boolean" &&
       typeof best_waifu !== "number"
       ) {
@@ -71,8 +71,8 @@ routerCuadro.put("/:id", async (req, res) => {
     const imagen = req.body.imagen;
 
     await pool.query(
-      "UPDATE cuadros SET nombre = $1, estudio = $2, sinopsis = $3, link_anime = $4, best_waifu = $5, codigo_obra = $6, imagen = $7",
-      [nombre, estudio, sinopsis, link_anime, best_waifu, codigo_obra, imagen]
+      "UPDATE cuadros SET nombre = $1, estudio = $2, sinopsis = $3, link_anime = $4, best_waifu = $5, codigo_obra = $6, imagen = $7 WHERE id_cuadro = $8",
+      [nombre, estudio, sinopsis, link_anime, best_waifu, codigo_obra, imagen, id]
     );
     res
       .status(201)
